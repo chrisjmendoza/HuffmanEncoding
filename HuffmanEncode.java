@@ -69,7 +69,6 @@ public class HuffmanEncode {
 			this.symbol = symbol;
 			this.leftChild = leftChild;
 			this.rightChild = rightChild;
-			this.parent = parent;
 			this.weight = weight;
 		}
 
