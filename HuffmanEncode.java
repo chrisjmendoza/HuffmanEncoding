@@ -1,11 +1,10 @@
 import java.io.*;
 import java.util.*;
 
-public class HuffmanEncode<T> implements Comparable<T> {
+public class HuffmanEncode {
 	
 	CharNode overallRoot;
 	FileReader output;
-	String path;
 
 	public HuffmanEncode(File object) throws IOException {
 		output = new FileReader(object);
@@ -83,11 +82,5 @@ public class HuffmanEncode<T> implements Comparable<T> {
 			return this.weight - o.weight;
 		}
 
-	}
-
-	@Override
-	public int compareTo(T o) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 }
