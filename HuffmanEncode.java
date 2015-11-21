@@ -5,11 +5,12 @@ public class HuffmanEncode {
 
 	CharNode overallRoot;
 	FileReader output;
-	ArrayList<Integer> weight = new ArrayList<Integer>();
 
 	/**
-	 * @param object The Text file to read
-	 * @throws IOException Throws exception if it's not readable
+	 * @param object
+	 *            The Text file to read
+	 * @throws IOException
+	 *             Throws exception if it's not readable
 	 */
 	public HuffmanEncode(File object) throws IOException {
 		output = new FileReader(object);
@@ -21,8 +22,7 @@ public class HuffmanEncode {
 		while ((c = output.read()) != -1) {
 			valFreq.putIfAbsent((char) c, 0);
 			valFreq.replace((char) c, valFreq.get((char) c) + 1);
-			// System.out.println(c);
-			// System.out.println(valFreq.get((char) c));
+			//System.out.println(c + " " + valFreq.get((char) c));
 		}
 		output.close();
 
@@ -35,9 +35,12 @@ public class HuffmanEncode {
 		// Go Highlander on the nodes in the priority queue by combining nodes
 		// until there is only 1 (that will be the HuffTree)
 		while (queue.size() > 1) {
-			CharNode temp1 = queue.remove(); // pop out the two smallest value nodes
-			CharNode temp2 = queue.remove(); // and create a new node from the two
+			CharNode temp1 = queue.remove(); // pop out the two smallest value
+												// nodes
+			CharNode temp2 = queue.remove(); // and create a new node from the
+												// two
 			CharNode newNode = new CharNode(null, temp1, temp2, temp1.weight + temp2.weight);
+			temp1.parent = temp2.parent = newNode;
 			queue.add(newNode); // add it back into the pile
 		}
 
@@ -49,17 +52,13 @@ public class HuffmanEncode {
 		Map<Character, String> charMap = genMap(overallRoot);
 
 		// Output the values from the generated character map
-		System.out.println(charMap.toString());
+		//System.out.println(charMap.toString());
 
 		// NEED TO PRINT OUT THE CHARACTER _ BINARYPATH _ # OF OCCURRENCES
-		ArrayList<String> symbols = new ArrayList<String>();
-		ArrayList<String> binaryPath = new ArrayList<String>();
-		for(Character name: charMap.keySet()) {
-			symbols.add(name.toString());
-			binaryPath.add(charMap.get(name).toString());
-		}		
-		for(int i = 0; i < symbols.size(); i++) {
-			System.out.println(symbols.get(i) + " " + binaryPath.get(i) + " " + weight.get(i));
+
+		for(Character letter: charMap.keySet()) {
+			System.out.print(letter + " " + charMap.get(letter) + " "+ valFreq.get(letter));
+			System.out.println();
 		}
 	}
 
@@ -73,7 +72,7 @@ public class HuffmanEncode {
 		traversal(map, root, "");
 		return map;
 	}
-	
+
 	/**
 	 * @param map
 	 *            The map of characters and it's binary path in a String
@@ -84,15 +83,13 @@ public class HuffmanEncode {
 	 */
 	private void traversal(Map<Character, String> map, CharNode root, String path) {
 		if (root.isLeaf()) {
-			weight.add(root.weight);
 			map.put(root.symbol, path);
 		} else {
 			traversal(map, root.leftChild, path + '0');
 			traversal(map, root.rightChild, path + '1');
 		}
 	}
-
-
+	
 	/**
 	 * @author Chris Mendoza
 	 * 
@@ -135,12 +132,11 @@ public class HuffmanEncode {
 		public boolean isLeaf() {
 			return leftChild == null && rightChild == null;
 		}
-		
+
 		public int getWeight() {
 			return weight;
 		}
 
-		
 		/*
 		 * Checks the occurrences of this node against the passed node
 		 */
