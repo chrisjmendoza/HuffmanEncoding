@@ -5,6 +5,7 @@ public class HuffmanEncode {
 
 	CharNode overallRoot;
 	FileReader output;
+	ArrayList<Integer> weight = new ArrayList<Integer>();
 
 	/**
 	 * @param object The Text file to read
@@ -51,6 +52,15 @@ public class HuffmanEncode {
 		System.out.println(charMap.toString());
 
 		// NEED TO PRINT OUT THE CHARACTER _ BINARYPATH _ # OF OCCURRENCES
+		ArrayList<String> symbols = new ArrayList<String>();
+		ArrayList<String> binaryPath = new ArrayList<String>();
+		for(Character name: charMap.keySet()) {
+			symbols.add(name.toString());
+			binaryPath.add(charMap.get(name).toString());
+		}		
+		for(int i = 0; i < symbols.size(); i++) {
+			System.out.println(symbols.get(i) + " " + binaryPath.get(i) + " " + weight.get(i));
+		}
 	}
 
 	/**
@@ -63,7 +73,7 @@ public class HuffmanEncode {
 		traversal(map, root, "");
 		return map;
 	}
-
+	
 	/**
 	 * @param map
 	 *            The map of characters and it's binary path in a String
@@ -74,12 +84,14 @@ public class HuffmanEncode {
 	 */
 	private void traversal(Map<Character, String> map, CharNode root, String path) {
 		if (root.isLeaf()) {
+			weight.add(root.weight);
 			map.put(root.symbol, path);
 		} else {
 			traversal(map, root.leftChild, path + '0');
 			traversal(map, root.rightChild, path + '1');
 		}
 	}
+
 
 	/**
 	 * @author Chris Mendoza
@@ -122,6 +134,10 @@ public class HuffmanEncode {
 		 */
 		public boolean isLeaf() {
 			return leftChild == null && rightChild == null;
+		}
+		
+		public int getWeight() {
+			return weight;
 		}
 
 		/*
