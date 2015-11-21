@@ -140,6 +140,7 @@ public class HuffmanEncode {
 			return weight;
 		}
 
+		
 		/*
 		 * Checks the occurrences of this node against the passed node
 		 */
