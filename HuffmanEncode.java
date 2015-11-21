@@ -34,6 +34,7 @@ public class HuffmanEncode {
 
 		// Go Highlander on the nodes in the priority queue by combining nodes
 		// until there is only 1 (that will be the HuffTree)
+		// THERE CAN BE ONLY ONE
 		while (queue.size() > 1) {
 			CharNode temp1 = queue.remove(); // pop out the two smallest value
 												// nodes
